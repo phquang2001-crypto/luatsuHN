@@ -1,0 +1,30 @@
+<section class="section">
+    <h2>Đặt lịch tư vấn</h2>
+    <form id="bookingForm">
+        <input type="text" placeholder="Họ tên" required id="name"><br><br>
+        <input type="text" placeholder="Số điện thoại" required id="phone"><br><br>
+        <textarea placeholder="Nội dung cần tư vấn" id="content"></textarea><br><br>
+        <button class="btn">Gửi yêu cầu</button>
+    </form>
+</section>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const data = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        content: document.getElementById("content").value
+    };
+
+    const res = await fetch("/api/book", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+    alert(result.message);
+});
+</script>
