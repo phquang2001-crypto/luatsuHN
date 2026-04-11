@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Admin - Quản lý khách hàng</title>
+<style>
+body { font-family: Arial; background: #0B2C4A; color: #fff; padding: 20px;}
+table { width: 100%; border-collapse: collapse; background: #111;}
+th, td { padding: 10px; border: 1px solid #333;}
+button { padding: 5px 10px; margin: 2px;}
+</style>
+</head>
+<body>
+
+<h2>Danh sách khách hàng</h2>
+
+<table>
+<thead>
+<tr>
+<th>Tên</th>
+<th>SĐT</th>
+<th>Nội dung</th>
+<th>Thời gian</th>
+<th>Trạng thái</th>
+<th>Hành động</th>
+</tr>
+</thead>
+<tbody id="tableBody"></tbody>
+</table>
+
+<script>
+async function loadData() {
+    const res = await fetch("/api/bookings");
+    const data = await res.json();
+
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML = "";
+
+    data.reverse().forEach(b => {
+        const row = `
+        <tr>
+            <td>${b.name}</td>
+            <td>${b.phone}</td>
+            <td>${b.content}</td>
+            <td>${new Date(b.time).toLocaleString()}</td>
+            <td>${b.status}</td>
+            <td>
+                <button onclick="updateStatus(${b.id})">✔ Đã liên hệ</button>
+                <button onclick="deleteBooking(${b.id})">❌ Xoá</button>
+            </td>
+        </tr>`;
+        tbody.innerHTML += row;
+    });
+}
+
+async function deleteBooking(id) {
+    await fetch("/api/book/" + id, { method: "DELETE" });
+    loadData();
+}
+
+async function updateStatus(id) {
+    await fetch("/api/book/" + id, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: "Đã liên hệ" })
+    });
+    loadData();
+}
+
+loadData();
+</script>
+
+</body>
+</html>
