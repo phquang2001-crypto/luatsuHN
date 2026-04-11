@@ -7,9 +7,9 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
-app.get('/', (req, res) => {
-  res.send('Server is running!');
-});
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+
 // API nhận đặt lịch
 app.post("/api/book", (req, res) => {
     const data = req.body;
