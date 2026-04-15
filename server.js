@@ -5,11 +5,8 @@ const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
-app.use(express.static("public"));
 
-const FILE = "./data/bookings.json";
-
-
+// Middleware bảo vệ admin
 app.use("/admin", (req, res, next) => {
     const auth = { user: "admin", pass: "1324" };
 
@@ -21,11 +18,24 @@ app.use("/admin", (req, res, next) => {
     }
 
     res.set("WWW-Authenticate", 'Basic realm="Admin Area"');
-    res.status(401).send("Authentication required.");
+    res.status(401).send("Yêu cầu đăng nhập!");
+});
+
+app.get("/admin", (req, res) => {
+    res.sendFile(__dirname + "/public/admin.html");
+});
+
+
+app.get("/admin.html", (req, res) => {
+    res.status(403).send("Forbidden");
 });
 
 
 
+
+app.use(express.static("public"));
+
+const FILE = "./data/bookings.json";
 
 // API lấy danh sách khách
 app.get("/api/bookings", (req, res) => {
