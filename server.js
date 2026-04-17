@@ -7,7 +7,7 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 // Middleware bảo vệ admin
-app.use("/admin", (req, res, next) => {
+app.use("/admin.html", (req, res, next) => {
     const auth = { user: "admin", pass: "1324" };
 
     const b64auth = (req.headers.authorization || "").split(" ")[1] || "";
