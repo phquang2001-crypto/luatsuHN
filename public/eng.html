@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>English Notes & Daily Reading</title>
+<style>
+:root{--bg:#F3F6FB;--ink:#15213B;--mute:#5B6784;--line:#D9E0EE;--panel:#fff;--acc:#2D5BFF;--acc-ink:#fff;--ok:#12A37A;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1628;--ink:#EAF0FF;--mute:#9AA8CC;--line:#26324F;--panel:#18213A;--acc:#6C8BFF;--acc-ink:#0F1628;--ok:#3DD6A5}}
+:root[data-theme="dark"]{--bg:#0F1628;--ink:#EAF0FF;--mute:#9AA8CC;--line:#26324F;--panel:#18213A;--acc:#6C8BFF;--acc-ink:#0F1628;--ok:#3DD6A5}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+main{max-width:480px;margin:0 auto;padding:20px 18px 96px}
+h1{font:800 26px/1.2 "Trebuchet MS",sans-serif;margin:8px 0 6px;letter-spacing:-.5px}
+h2{font-size:18px;margin:20px 0 8px}p{margin:6px 0}.mute{color:var(--mute);font-size:14px}
+label{display:block;font-weight:700;margin:16px 0 6px}
+input,select,textarea{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:inherit}
+textarea{min-height:90px;resize:vertical}
+button{font:inherit;cursor:pointer}:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:9px 14px;border:1.5px solid var(--line);border-radius:99px;background:var(--panel);color:var(--ink)}
+.chip[aria-pressed=true]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:700}
+.cta{width:100%;margin-top:22px;padding:14px;border:0;border-radius:12px;background:var(--acc);color:var(--acc-ink);font-weight:800;font-size:17px}
+.ghost{background:none;border:1.5px solid var(--line);color:var(--ink);padding:9px 14px;border-radius:10px}
+.rs{padding:14px;border:1.5px solid var(--line);border-radius:12px;margin:10px 0;background:var(--panel)}
+.banner{padding:12px 14px;border-radius:12px;background:var(--panel);border-left:5px solid var(--ok);margin:14px 0;font-weight:600}
+.read{width:100%;padding:14px;border-radius:12px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);font-weight:800;margin-top:14px}
+.read[aria-pressed=true]{background:var(--ok);border-color:var(--ok);color:#fff}
+.passage{font-size:17px;line-height:1.75;margin:10px 0}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--panel);border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px)}
+nav div{display:flex;width:100%;max-width:480px}
+nav button{flex:1;padding:14px 4px;border:0;background:none;color:var(--mute);font-weight:700}
+nav button[aria-current=true]{color:var(--acc);box-shadow:inset 0 3px 0 var(--acc)}
+.ni{padding:12px 0;border-bottom:1px solid var(--line)}.ni p{white-space:pre-wrap;margin:4px 0}
+.tag{font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px;background:var(--line)}.del{float:right;border:0;background:none;color:var(--mute)}
+.note{font-size:13px;color:var(--mute);margin-top:22px;padding-top:12px;border-top:1px dashed var(--line)}
+details.sec{border:1.5px solid var(--line);border-radius:12px;background:var(--panel);margin:10px 0;padding:0 14px}
+summary{cursor:pointer;padding:14px 0;font-weight:800;font-size:17px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+summary::-webkit-details-marker{display:none}summary::after{content:"▾";color:var(--mute);margin-left:10px}
+details[open]>summary::after{content:"▴"}.cnt{color:var(--mute);font-weight:600;font-size:15px;margin-left:auto}
+.more{width:100%;margin:10px 0}mark{background:#FFE58A;color:#15213B;border-radius:3px}
+.selbar{position:fixed;left:0;right:0;bottom:62px;display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;padding:10px 14px;background:var(--ink);color:var(--bg);z-index:5}
+.selbar a,.selbar button{padding:8px 12px;border-radius:9px;border:0;background:var(--bg);color:var(--ink);font-weight:700;text-decoration:none;font-size:14px}
+.playbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.playbar button{flex:1;min-width:84px}.ghost[aria-pressed=true]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:700}
+.blank{display:inline;border:0;border-bottom:2px solid var(--acc);background:transparent;color:var(--ink);font:inherit;font-size:1em;text-align:center;padding:0 2px;margin:0 1px;vertical-align:baseline}.blank:focus{outline:none;border-bottom-color:var(--ok)}.blank.ok{border-bottom-color:var(--ok);color:var(--ok);font-weight:700}.blank.bad{border-bottom-color:#E0564D;color:#E0564D;font-weight:700}.ans{font-size:1em;font-weight:800;color:var(--ok);margin-left:2px}.fib{font-size:17px;line-height:2.3}
+#topbar{max-width:480px;margin:0 auto;padding:10px 18px 0;display:flex;justify-content:space-between;align-items:center}#topbar button{padding:6px 10px;font-size:12px}.finish{padding:16px;border:1.5px solid var(--acc);border-radius:14px;background:var(--panel);margin:16px 0}
+.hidden{display:none}
+@media(prefers-reduced-motion:no-preference){.chip{transition:background .15s}}
+</style></head><body>
+<div id="topbar" class="hidden"></div>
+<main id="app"></main>
+<div id="sel" class="selbar hidden" role="status"><b id="selw"></b><a id="selc" target="_blank" rel="noopener noreferrer" href="#">Cambridge</a><button id="sels">Save word</button></div>
+<nav id="nav" class="hidden"><div>
+<button data-t="today">Today</button><button data-t="notes">Notes</button></div></nav>
+<script>
+const SK=["Speaking","Writing","Reading","Listening","General"];
+const TOPICS=["Daily life","Travel","Work & study","Technology","Health","Environment"];
+const LEVELS=["Beginner","Intermediate","Advanced"];
+const PASSAGES={
+"Daily life":{
+Beginner:[
+  "I wake up at seven o'clock every morning. First, I drink a glass of water. Then I make breakfast. I like toast and eggs. After breakfast, I walk to the bus stop. The bus comes at eight o'clock. I go to work five days a week.",
+  "My family eats dinner together every evening. My mother cooks rice and vegetables. My father sets the table. We talk about our day. After dinner, I wash the dishes. Then I watch television for one hour before bed.",
+  "On Saturday mornings, I clean my house. I sweep the floor and wash the windows. Then I do the laundry. In the afternoon, I go shopping for food. I buy fruit, bread, and milk. After shopping, I cook a simple lunch for my family.",
+  "I take care of my small garden every day. I water the plants in the morning. Sometimes I pull out the weeds. My favourite flower is the rose. In the evening, I check if the plants need more water. Gardening makes me feel calm.",
+  "Every Sunday, I call my parents on the phone. We talk for about thirty minutes. I tell them about my week. They ask about my health and my job. After the call, I feel happy. Family time is important to me."
+],
+Intermediate:[
+  "Most people in my city follow a similar morning routine, although the details can vary quite a bit. Some prefer to exercise before work, while others would rather sleep a little longer and skip breakfast entirely. I personally find that a short walk helps me feel more awake and ready for the day ahead.",
+  "Weekends give us a chance to slow down after a busy week. Instead of rushing to catch a bus, I usually spend the morning reading or catching up with friends over coffee. These small routines may seem ordinary, but they play an important role in keeping life balanced.",
+  "Grocery shopping has changed a lot in recent years, with many people now ordering food online rather than visiting a physical store. While this saves time, some shoppers miss the experience of choosing fresh produce themselves and chatting with the staff they have come to know.",
+  "Keeping a tidy home can feel like a never-ending task, especially for people juggling work and family responsibilities. Many find that breaking chores into small daily habits, rather than saving everything for one exhausting weekend, makes the workload feel far more manageable.",
+  "Staying in touch with family who live far away has become easier thanks to video calls, yet nothing quite replaces an in-person visit. Many people try to combine both, calling regularly throughout the year while planning at least one trip home when possible."
+],
+Advanced:[
+  "Daily routines, though often dismissed as mundane, reveal a great deal about a society's values and priorities. The way people structure their mornings, for instance, can reflect broader cultural attitudes toward productivity, leisure, and family life, and these patterns tend to shift gradually as social and economic circumstances evolve.",
+  "It is tempting to view habitual behaviour as trivial, yet psychologists argue that small, repeated actions accumulate into the foundation of a person's wellbeing. Establishing a sustainable rhythm, rather than pursuing dramatic lifestyle changes, is often what distinguishes those who maintain long-term healthy habits from those who do not.",
+  "The rise of convenience-driven consumer habits, from food delivery apps to automated household devices, has subtly reshaped the texture of domestic life, often trading a sense of agency and ritual for efficiency, a trade-off whose long-term consequences remain poorly understood.",
+  "Household labour, though frequently undervalued in economic terms, constitutes a substantial portion of unpaid work within most societies, and its uneven distribution between genders continues to be a persistent source of social and economic inequality worth closer scrutiny.",
+  "Maintaining long-distance family relationships requires a degree of intentionality that proximity once rendered unnecessary; scheduled calls and periodic visits, however well-meaning, can never fully replicate the spontaneous, incidental closeness that shared physical space tends to produce."
+]
+},
+"Travel":{
+Beginner:[
+  "Last year, I visited a small town near the mountains. The weather was cold, but the view was beautiful. I stayed in a cheap hotel for three nights. Every day, I walked around the town and took photos. I also tried the local food. It was a simple but happy trip.",
+  "My friend wants to travel to a new country this summer. She needs to buy a plane ticket and get a visa. She is also learning some words in the local language. She hopes to visit famous places and meet new people.",
+  "I went to the beach last weekend with my friends. We swam in the sea and built a sandcastle. We also ate ice cream near the beach. The sun was very hot, so we wore hats. It was a fun and relaxing day.",
+  "My family took a train trip to the countryside. We saw green fields and small farms from the window. We stopped at a little station and bought some snacks. The trip took three hours. I enjoyed looking out the window the whole time.",
+  "Next month, I am going to visit my cousin in another city. I will travel by bus because it is cheap. I packed my bag with clothes and a camera. I want to take many photos of the city. I am very excited for the trip."
+],
+Intermediate:[
+  "Planning a trip abroad can be both exciting and a little stressful, especially if it is your first time travelling alone. Beyond booking flights and accommodation, it helps to research local customs so you know what to expect. Many travellers also recommend packing light, since dragging heavy luggage around unfamiliar streets quickly becomes exhausting.",
+  "Budget travel has become increasingly popular among young people who want to see the world without spending a fortune. By staying in hostels, cooking some of their own meals, and using public transport instead of taxis, travellers can stretch a modest budget surprisingly far while still having memorable experiences.",
+  "Road trips offer a unique sense of freedom that flying simply cannot match, allowing travellers to stop wherever curiosity leads them. Of course, this flexibility comes with its own challenges, including unpredictable weather, long driving hours, and the need for careful route planning.",
+  "Choosing between a guided tour and independent travel often comes down to personal preference. Guided tours offer structure and local expertise, while independent travel allows for spontaneity and a more personal connection with the destination, even if it requires more research beforehand.",
+  "Travelling during the off-season has become an attractive option for many, since it usually means lower prices and fewer crowds at popular attractions. The trade-off is that some seasonal activities may not be available, and the weather can be less predictable."
+],
+Advanced:[
+  "Tourism, while economically beneficial for many regions, raises complex questions about sustainability and cultural preservation. As destinations become overwhelmed by visitor numbers, local infrastructure can struggle to cope, and the very character that once attracted travellers risks being eroded by commercialisation and overcrowding.",
+  "Contemporary travel writing has moved away from romanticised depictions of distant lands toward more nuanced accounts that acknowledge the traveller's own biases and privileges. This shift reflects a broader reckoning within the industry about who benefits from tourism and whose stories are told, or left untold, along the way.",
+  "Slow travel, a movement that favours lingering in fewer destinations over rapidly covering many, has gained traction among those disillusioned with the superficiality of checklist tourism, prioritising depth of experience and genuine cultural engagement over the accumulation of photographs and passport stamps.",
+  "The carbon footprint associated with international travel presents a genuine ethical dilemma for conscientious travellers, who must weigh the undeniable value of cross-cultural exchange against the environmental cost of long-haul flights, a tension unlikely to be resolved without significant technological or behavioural shifts.",
+  "Digital nomadism, enabled by remote work and reliable internet connectivity, has blurred the traditional boundary between travel and residence, prompting destinations worldwide to reconsider visa policies and infrastructure in order to accommodate this increasingly influential, if transient, demographic."
+]
+},
+"Work & study":{
+Beginner:[
+  "I work in an office. I start work at nine o'clock. I answer emails and attend meetings. At lunchtime, I eat with my coworkers. I finish work at five o'clock. On the weekend, I study English for one hour to improve my skills.",
+  "My brother is a student at university. He studies business. He has classes four days a week. In the evening, he does his homework in the library. He wants to find a good job after he finishes his studies.",
+  "I started a new job last month. My manager is very kind and helpful. Every morning, we have a short meeting. I am learning new computer skills. I feel nervous sometimes, but I am also excited to learn more about my work.",
+  "My sister is studying to become a nurse. She has classes and also works in a hospital. She studies very hard every night. Sometimes she feels tired, but she loves helping people. She hopes to finish her studies next year.",
+  "I am taking an online course after work. The classes are in the evening, twice a week. I learn about marketing and business. It is hard to study after a long work day, but I want to get a better job in the future."
+],
+Intermediate:[
+  "Balancing work and personal study can be challenging, particularly for people who already have demanding jobs. Many professionals choose to study in the early morning or late at night, when they are less likely to be interrupted. Setting realistic goals, rather than trying to learn everything at once, tends to produce better long-term results.",
+  "Remote work has changed the way many people think about their careers. Without a daily commute, some employees find they have more time for personal development, including learning new skills or studying a second language. However, others struggle with the lack of separation between work and home life.",
+  "Choosing a career path can feel overwhelming, particularly when there are so many options and conflicting advice from family, friends, and the internet. Many career counsellors suggest focusing on personal strengths and values first, rather than simply chasing high salaries or popular trends.",
+  "Internships have become an almost essential step for students entering competitive job markets, offering practical experience that classroom learning alone cannot provide. However, unpaid internships raise concerns about accessibility, since not every student can afford to work without pay for several months.",
+  "Group projects at work or university often divide opinion, with some people thriving on collaboration while others find it frustrating when responsibilities are unevenly shared. Clear communication from the outset tends to make these projects noticeably smoother for everyone involved."
+],
+Advanced:[
+  "The traditional boundaries between education and employment are increasingly blurred, as lifelong learning becomes a professional necessity rather than a personal choice. Employers now routinely expect staff to upskill continuously, which places the burden of adaptation squarely on the individual rather than on institutions.",
+  "Research into workplace productivity suggests that cognitive fatigue, rather than a lack of discipline, is often responsible for procrastination among students and professionals alike. Structuring study or work sessions around natural attention spans, instead of rigid schedules, may therefore be a more effective strategy than simply working longer hours.",
+  "Credential inflation, whereby increasingly advanced qualifications are required for roles that once demanded far less formal education, has raised questions about whether the expanding higher education sector genuinely enhances productivity or merely shifts the burden of selection onto job seekers themselves.",
+  "The gig economy's promise of flexibility has proven, for many workers, to be a double-edged sword, offering autonomy over one's schedule while simultaneously eroding the job security, benefits, and collective bargaining power that characterised more traditional employment arrangements.",
+  "Mentorship within professional settings, though widely praised, is often distributed unevenly, with certain employees receiving substantially more guidance and visibility than others, a disparity that can quietly compound over time into significant differences in career advancement."
+]
+},
+"Technology":{
+Beginner:[
+  "I use my phone every day. I send messages to my friends and check the news. I also use an app to learn new English words. Sometimes I watch videos online. Technology makes it easy to stay in touch with people far away.",
+  "My grandmother got a new phone this year. At first, it was difficult for her to use. Now she can make video calls to her grandchildren. She says technology helps her feel less alone, even when family lives in another city.",
+  "My laptop stopped working last week. I took it to a repair shop near my house. The man fixed it in two days. Now it works well again. I learned that I should save my files online, just in case this happens again.",
+  "I downloaded a new app to learn English. Every day, I practise for fifteen minutes. The app gives me small tests and shows my progress. I like seeing my score improve. It makes learning feel like a fun game.",
+  "My company started using a new computer program for work. At first, it was confusing to use. My coworker showed me how it works. Now I can finish my tasks faster than before. Learning new technology takes time, but it helps me in the end."
+],
+Intermediate:[
+  "As smartphones become more powerful, people are spending increasing amounts of time staring at screens, which has led to growing concern about its effect on attention spans and mental health. Some experts recommend setting daily limits on app usage, while others argue that the quality of screen time matters more than the quantity.",
+  "Artificial intelligence is now part of many everyday tools, from language learning apps to customer service chatbots. While this technology can make certain tasks faster and more convenient, it also raises questions about job security and how much we should rely on machines for decisions that used to require human judgement.",
+  "Online privacy has become a growing concern as more of our daily activities move onto digital platforms. Many people now use stronger passwords and two-factor authentication, yet surveys suggest that most users still underestimate how much personal data companies actually collect.",
+  "Video calls have made it possible for teams scattered across different countries to collaborate as if they were in the same room, though technical issues and time zone differences can still make meetings frustrating. Many companies now train employees specifically on virtual communication skills.",
+  "Social media algorithms are designed to keep users engaged for as long as possible, often by showing content that triggers strong emotional reactions. Understanding how these systems work can help people use social media more intentionally, rather than simply scrolling out of habit."
+],
+Advanced:[
+  "The rapid proliferation of artificial intelligence has prompted a reassessment of what constitutes genuinely productive technology, as opposed to tools that merely create an illusion of efficiency while quietly eroding users' capacity for independent thought. Critics argue that convenience, left unchecked, can come at the expense of deeper cognitive engagement.",
+  "Debates surrounding data privacy have intensified as algorithms grow increasingly adept at inferring sensitive information from seemingly innocuous digital traces. Regulators worldwide are grappling with how to balance innovation with the protection of individual autonomy, a tension that shows no sign of resolving quickly.",
+  "Algorithmic curation, while ostensibly designed to enhance user experience, has drawn scrutiny for its tendency to reinforce existing beliefs through increasingly narrow content recommendations, a phenomenon that some scholars argue contributes meaningfully to societal polarisation rather than merely reflecting it.",
+  "The automation of routine cognitive tasks, once thought to be the exclusive domain of manual labour, now threatens to displace a broad swathe of white-collar professions, compelling policymakers to reconsider long-standing assumptions about which forms of work are genuinely future-proof.",
+  "Open-source software development, built on a model of decentralised, voluntary collaboration, has repeatedly demonstrated that commercial incentives are not the sole driver of technological innovation, challenging conventional economic narratives about what motivates high-quality, sustained creative output."
+]
+},
+"Health":{
+Beginner:[
+  "I try to stay healthy by eating vegetables and drinking water every day. I also go for a short walk after dinner. I sleep eight hours each night. These small habits help me feel good and have more energy.",
+  "My doctor told me to exercise three times a week. Now I go to the gym on Monday, Wednesday, and Friday. I feel stronger than before. I also sleep better at night since I started exercising.",
+  "I had a headache yesterday, so I drank more water and rested. I also went to bed early. This morning, I felt much better. I learned that my headaches often happen when I do not drink enough water during the day.",
+  "My friend joined a yoga class last month. She goes twice a week after work. She says it helps her feel less stressed. I want to try yoga too, because I also feel stressed sometimes from my job.",
+  "I try to eat breakfast every morning before work. I usually have oatmeal with fruit. My coworker never eats breakfast, and she often feels tired by midday. I think breakfast gives me more energy for my busy day."
+],
+Intermediate:[
+  "Mental health is now discussed much more openly than it was a generation ago, and many workplaces have started offering support such as counselling or flexible hours for employees who are struggling. Even so, some people still hesitate to ask for help, worried about how it might be perceived by colleagues.",
+  "Nutrition advice can feel overwhelming, with new trends appearing online almost every week. Rather than following the latest diet, many doctors suggest focusing on consistent, simple habits such as eating a variety of whole foods and staying properly hydrated throughout the day.",
+  "Regular exercise is widely recognised as beneficial, yet many people struggle to maintain a consistent routine amid busy schedules. Experts often recommend starting with small, achievable goals, such as a short daily walk, rather than committing to an intense program that is difficult to sustain.",
+  "Sleep is sometimes treated as a luxury rather than a necessity, with many people proudly describing how little rest they get. However, growing research links insufficient sleep to reduced concentration, weaker immunity, and a higher risk of several chronic health conditions.",
+  "Stress management techniques vary widely, from meditation and deep breathing to simply talking with a trusted friend. What works well for one person may not suit another, which is why health professionals often encourage experimenting with different approaches to find the best fit."
+],
+Advanced:[
+  "The relationship between sleep quality and cognitive performance has been the subject of extensive research, yet public awareness of its significance remains surprisingly limited, with many people still treating sleep as a flexible commodity to be sacrificed when schedules become demanding.",
+  "Preventative healthcare continues to be underfunded relative to treatment-based medicine in many countries, despite mounting evidence that early intervention produces better outcomes at a fraction of the long-term cost. This imbalance reflects deeper structural incentives within healthcare systems rather than a simple lack of awareness.",
+  "The medicalisation of everyday emotional fluctuations has sparked debate among clinicians and sociologists alike, with critics arguing that ordinary experiences of sadness or anxiety are increasingly pathologised, while proponents maintain that earlier recognition of genuine mental health conditions ultimately saves lives.",
+  "Public health campaigns frequently place the burden of behaviour change squarely on individuals, despite mounting evidence that structural factors, such as food deserts or inadequate urban planning for physical activity, play an equally significant role in shaping population-level health outcomes.",
+  "The placebo effect, though often dismissed as a mere psychological curiosity, reveals something profound about the intricate relationship between expectation, belief, and physiological response, a connection that modern medicine is only beginning to investigate with appropriate scientific rigour."
+]
+},
+"Environment":{
+Beginner:[
+  "Many people are trying to protect the environment. I recycle paper and plastic at home. I also try to use less water when I shower. Small actions like these can help the planet, especially when many people do them together.",
+  "Last weekend, my neighbours and I cleaned the local park. We picked up rubbish and planted a few trees. It felt good to help our community and make the park a cleaner, nicer place for everyone.",
+  "I started using a cloth bag instead of plastic bags. I bring it every time I go shopping. My friends saw me using it, and now some of them use cloth bags too. Small changes like this can help reduce plastic waste.",
+  "My city started a new recycling program this year. We now separate paper, plastic, and glass into different bins. At first, it was difficult to remember, but now it feels normal. I am glad my city is trying to help the environment.",
+  "There was a big storm in my city last week. Many trees fell down, and some streets were flooded. Scientists say storms like this are happening more often. I am worried about the weather changing, so I try to use less electricity at home."
+],
+Intermediate:[
+  "Climate change is affecting weather patterns around the world, leading to more frequent extreme events such as floods and droughts. While governments debate large-scale policies, individuals are also finding ways to reduce their own impact, from cutting down on plastic use to choosing public transport over driving.",
+  "Renewable energy sources, such as solar and wind power, are becoming more affordable every year, making them an increasingly realistic alternative to fossil fuels. Even so, the transition requires significant investment in infrastructure, and progress varies considerably from country to country.",
+  "Reducing food waste has become a growing focus for environmental campaigns, since a significant portion of global greenhouse gas emissions comes from food that is grown but never eaten. Simple habits, like planning meals in advance, can make a noticeable difference over time.",
+  "Urban green spaces, such as parks and community gardens, provide far more than just aesthetic value; they help cool cities during heatwaves, support local wildlife, and give residents a place to relax. Many city planners now consider them essential rather than optional.",
+  "Fast fashion has come under increasing criticism for its environmental impact, from excessive water usage to textile waste. Some consumers are shifting toward second-hand clothing or buying fewer, higher-quality items, though changing deeply ingrained shopping habits remains a slow process."
+],
+Advanced:[
+  "Environmental policy frequently finds itself caught between short-term economic pressures and the long-term imperative to curb ecological degradation, a tension that complicates even seemingly straightforward interventions such as carbon pricing or emissions trading schemes.",
+  "Biodiversity loss, though less visible than climate change in everyday life, poses an equally serious threat to ecological stability, as the extinction of a single species can trigger cascading effects throughout an entire ecosystem that are difficult to predict or reverse.",
+  "Carbon offsetting schemes, while popular among corporations seeking to project environmental responsibility, have faced sustained criticism for their inconsistent verification standards, raising questions about whether such programs meaningfully reduce emissions or merely provide a convenient means of reputational insulation.",
+  "The concept of planetary boundaries, which delineates the environmental limits within which humanity can safely operate, has reframed sustainability discourse away from vague notions of conservation toward measurable, scientifically grounded thresholds, several of which researchers argue have already been transgressed.",
+  "Climate migration, though not yet formally recognised under international law, is projected to displace tens of millions of people in the coming decades, exposing significant gaps in existing legal frameworks that were never designed to accommodate displacement driven by environmental rather than political causes."
+]
+}
+};
+
+function loadProfiles(){try{return JSON.parse(localStorage.getItem("engnotes_profiles"))||{}}catch(e){return {}}}
+function saveProfiles(){try{localStorage.setItem("engnotes_profiles",JSON.stringify(PROFILES))}catch(e){}}
+function getActive(){try{return localStorage.getItem("engnotes_active")||""}catch(e){return ""}}
+function setActiveName(n){try{if(n)localStorage.setItem("engnotes_active",n);else localStorage.removeItem("engnotes_active")}catch(e){}}
+function blankProfile(){return {step:"setup",tab:"today",notes:[],ob:1,used:{},cur:null}}
+let PROFILES=loadProfiles();
+// migrate a pre-profile single user, if present, into a profile named "Me"
+(function migrate(){
+ if(Object.keys(PROFILES).length)return;
+ try{const old=JSON.parse(localStorage.getItem("engnotes"));if(old&&typeof old==="object"){PROFILES={Me:old};saveProfiles();setActiveName("Me")}}catch(e){}
+})();
+let ACTIVE=getActive();
+let S=(ACTIVE&&PROFILES[ACTIVE])?PROFILES[ACTIVE]:blankProfile();
+function save(){if(!ACTIVE)return;PROFILES[ACTIVE]=S;saveProfiles()}
+function switchTo(n){ACTIVE=n;setActiveName(n);S=PROFILES[n]||blankProfile();PROFILES[n]=S;saveProfiles();render();scrollTo(0,0)}
+function leaveProfile(){ACTIVE="";setActiveName("");render();scrollTo(0,0)}
+const $=s=>document.querySelector(s);
+const today=()=>new Date().toISOString().slice(0,10);
+function usedKey(topic,level){return topic+"__"+level}
+function usedFor(topic,level){S.used=S.used||{};return S.used[usedKey(topic,level)]||[]}
+function markUsed(topic,level,idx){S.used=S.used||{};const k=usedKey(topic,level);S.used[k]=S.used[k]||[];if(!S.used[k].includes(idx))S.used[k].push(idx)}
+function remainingCount(topic,level){const list=(PASSAGES[topic]&&PASSAGES[topic][level])||[];return list.length-usedFor(topic,level).length}
+function totalUsedCount(){S.used=S.used||{};return Object.values(S.used).reduce((a,arr)=>a+arr.length,0)}
+function pickPassageIdx(topic,level){
+ const list=(PASSAGES[topic]&&PASSAGES[topic][level])||[];
+ const used=usedFor(topic,level);
+ const avail=list.map((_,i)=>i).filter(i=>!used.includes(i));
+ if(!avail.length)return null;
+ return avail[Math.floor(Math.random()*avail.length)];
+}
+function ensureCurrent(){
+ const topics=(S.topics&&S.topics.length)?S.topics:Object.keys(PASSAGES);
+ if(S.cur&&topics.includes(S.cur.topic)){
+  const list=(PASSAGES[S.cur.topic]&&PASSAGES[S.cur.topic][S.level])||[];
+  if(S.cur.idx<list.length&&!usedFor(S.cur.topic,S.level).includes(S.cur.idx))return;
+ }
+ for(const t of topics){const idx=pickPassageIdx(t,S.level);if(idx!=null){S.cur={topic:t,idx};return}}
+ S.cur=null;
+}
+function currentPassage(){
+ ensureCurrent();
+ if(!S.cur)return null;
+ const list=(PASSAGES[S.cur.topic]&&PASSAGES[S.cur.topic][S.level])||[];
+ if(S.cur.idx>=list.length)return null;
+ return {topic:S.cur.topic,idx:S.cur.idx,level:S.level,text:list[S.cur.idx],key:S.cur.topic+"-"+S.level+"-"+S.cur.idx};
+}
+function esc(t){const d=document.createElement("div");d.textContent=t;return d.innerHTML}
+const escA=t=>esc(t).replace(/"/g,"&quot;");
+
+function renderProfilePicker(){
+ const names=Object.keys(PROFILES);
+ $("#app").innerHTML=`<h1>Who's using this?</h1><p class="mute">Each person gets their own level, topics, Notes and reading progress, even on the same device.</p>
+ ${names.length?`<label id="pl">Continue as</label><div class="chips" role="group" aria-labelledby="pl">${names.map(n=>`<button class="chip" data-pn="${escA(n)}">${esc(n)}</button>`).join("")}</div>`:""}
+ <label for="newname">${names.length?"Or add a new user":"Add your name to get started"}</label><input id="newname" placeholder="Your name" maxlength="24">
+ <button class="cta" id="pstart">Start</button><p class="mute" id="perr" role="alert"></p>`;
+ document.querySelectorAll("[data-pn]").forEach(b=>b.onclick=()=>switchTo(b.dataset.pn));
+ $("#pstart").onclick=()=>{const nm=$("#newname").value.trim();if(!nm){$("#perr").textContent="Please type a name.";return}switchTo(nm)};
+}
+function render(){
+ if(!ACTIVE){$("#nav").classList.add("hidden");$("#sel").classList.add("hidden");$("#topbar").classList.add("hidden");renderProfilePicker();return}
+ save();const a=$("#app"),nav=$("#nav");
+ const tb=$("#topbar");tb.classList.remove("hidden");tb.innerHTML=`<span class="mute">👤 ${esc(ACTIVE)}</span><button class="ghost" id="swu">Switch user</button>`;$("#swu").onclick=leaveProfile;
+ if(S.step==="setup"){nav.classList.add("hidden");$("#sel").classList.add("hidden");
+  const dots=`<p class="mute">Step ${S.ob} of 2</p>`;
+  let h;
+  if(S.ob===1){
+   h=`${dots}<h1>Save words, read every day.</h1><p class="mute">A place to keep notes on new words and phrases wherever you are, plus a short reading passage each day at your level.</p>
+   <label id="lv">Your English level</label><div class="chips" role="group" aria-labelledby="lv">${LEVELS.map(l=>`<button class="chip" aria-pressed="${S.level===l}" data-l="${l}">${l}</button>`).join("")}</div>
+   <p class="mute" id="er" role="alert"></p><button class="cta" id="nx">Next</button>`;
+  } else {
+   const topics=S.topics||[];
+   h=`${dots}<h1>Pick your topics</h1><p class="mute">We will give you a short passage each day, rotating through the topics you choose.</p>
+   <div class="chips" role="group" aria-label="Topics">${TOPICS.map(t=>`<button class="chip" aria-pressed="${topics.includes(t)}" data-tp="${t}">${t}</button>`).join("")}</div>
+   <p class="mute" id="er" role="alert"></p><button class="cta" id="go">Start</button><button class="ghost" id="bk" style="width:100%;margin-top:10px">Back</button>`;
+  }
+  a.innerHTML=h;
+  a.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{S.level=b.dataset.l;render()});
+  a.querySelectorAll("[data-tp]").forEach(b=>b.onclick=()=>{const t=b.dataset.tp;S.topics=S.topics||[];if(S.topics.includes(t))S.topics=S.topics.filter(x=>x!==t);else S.topics=[...S.topics,t];render()});
+  const nx=$("#nx");if(nx)nx.onclick=()=>{if(!S.level){$("#er").textContent="Please choose a level.";return}S.ob=2;render();scrollTo(0,0)};
+  const bk=$("#bk");if(bk)bk.onclick=()=>{S.ob=1;render()};
+  const go=$("#go");if(go)go.onclick=()=>{if(!S.topics||!S.topics.length){$("#er").textContent="Please choose at least one topic.";return}S.used=S.used||{};S.cur=null;S.pendingChoice=false;S.pickTopic=false;S.step="app";S.tab="today";render();scrollTo(0,0)};
+  return}
+ nav.classList.remove("hidden");nav.querySelectorAll("button").forEach(b=>b.setAttribute("aria-current",b.dataset.t===S.tab));
+ if(S.tab==="today")today_();else notes_();
+}
+let VOICES=[];
+function loadVoices(){try{VOICES=speechSynthesis.getVoices()||[]}catch(e){VOICES=[]}}
+if(typeof speechSynthesis!=="undefined"){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
+function pickVoice(accent,gender){
+ const lang=accent==="British"?"en-GB":"en-US";
+ const fem=/female|woman|zira|samantha|karen|serena|susan|victoria|tessa|fiona|moira|kate|emma|amy|joanna|salli|kendra|allison/i;
+ const male=/male(?!\w)|^man$|man\b|david|daniel|alex(?!a)|george|james|oliver|fred|arthur|rishi|matthew|brian|russell|james/i;
+ let pool=VOICES.filter(v=>v.lang&&v.lang.toLowerCase()===lang.toLowerCase());
+ if(!pool.length)pool=VOICES.filter(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));
+ let match=pool.find(v=>gender==="Woman"?fem.test(v.name):male.test(v.name));
+ if(!match)match=pool.find(v=>gender==="Woman"?!male.test(v.name):true);
+ if(!match)match=pool[0]||VOICES.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en"))||VOICES[0];
+ return match;
+}
+function stopSpeak(){try{speechSynthesis.cancel()}catch(e){}S.spk="";}
+function speakPassage(text){
+ if(typeof speechSynthesis==="undefined"){$("#vinfo").textContent="Reading aloud is not supported on this browser.";return}
+ stopSpeak();loadVoices();
+ const u=new SpeechSynthesisUtterance(text);
+ const v=pickVoice(S.voice.accent,S.voice.gender);
+ if(v){u.voice=v;u.lang=v.lang}else{u.lang=S.voice.accent==="British"?"en-GB":"en-US"}
+ const RATE={Beginner:0.72,Intermediate:0.92,Advanced:1.08};u.rate=RATE[S.level]||0.92;
+ u.onend=()=>{S.spk="";render()};
+ u.onerror=()=>{S.spk="";render()};
+ speechSynthesis.speak(u);S.spk="play";
+ $("#vinfo").textContent=(v?("Voice: "+v.name):("No matching voice found on this device, used a default "+(S.voice.accent==="British"?"British":"American")+" voice."))+" · Speed: "+(S.level==="Beginner"?"slow, for beginners":S.level==="Advanced"?"natural pace, for advanced":"normal pace");
+}
+function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const STOP=new Set(["the","a","an","is","are","was","were","be","been","being","to","of","in","on","at","and","or","but","for","with","as","it","its","this","that","these","those","i","you","he","she","they","we","my","your","their","our","his","her","not","so","if","than","then","from","by","into","out","up","down","over","after","before","about","also","can","could","will","would","should","do","does","did","has","have","had","who","what","when","where","how","which","there","here","very","just","more","most","some","any","no","one","two","three","four","five"]);
+function buildBlanks(text,key){
+ const sentences=text.split(/(?<=[.!?])\s+/).filter(Boolean);
+ let out=[],bid=0;
+ sentences.forEach((sent,si)=>{
+  const words=sent.split(" ");
+  const cand=[];
+  words.forEach((w,wi)=>{const core=w.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g,"");if(wi>0&&core.length>=4&&!STOP.has(core.toLowerCase()))cand.push(wi)});
+  const n=words.length>=10?2:words.length>=4?1:0;
+  const rng=mulberry32(hashStr(key+"-"+si));
+  const chosen=new Set();
+  const pool=cand.length?cand.slice():words.map((_,i)=>i).filter(i=>i>0&&words[i].replace(/[^A-Za-z']/g,"").length>=3);
+  while(chosen.size<Math.min(n,pool.length)){const idx=pool[Math.floor(rng()*pool.length)];chosen.add(idx)}
+  const toks=words.map((w,wi)=>{
+   const m=w.match(/^([^A-Za-z']*)([A-Za-z'\-]*)([^A-Za-z']*)$/)||["",w,"",""];
+   const [,pre,core,suf]=m;
+   if(chosen.has(wi)&&core){return {blank:true,id:"b"+(bid++),pre,core,suf}}
+   return {blank:false,text:w};
+  });
+  out.push(toks);
+ });
+ return out;
+}
+function renderFib(text,key){
+ const sents=buildBlanks(text,key);
+ return sents.map(toks=>toks.map(t=>t.blank?`${esc(t.pre)}<input class="blank" data-id="${t.id}" data-ans="${escA(t.core.toLowerCase())}" style="width:${Math.max(2.5,t.core.length*0.95)}ch" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Missing word">${esc(t.suf)}`:esc(t.text)).join(" ")).join(" ");
+}
+function bindModeChips(){document.querySelectorAll("[data-pm]").forEach(b=>b.onclick=()=>{stopSpeak();S.pmode=b.dataset.pm;render()})}
+function today_(){
+ S.voice=S.voice||{accent:"British",gender:"Woman"};S.spk=S.spk||"";S.pmode=S.pmode||"read";
+ const n=totalUsedCount();
+ const modeChips=`<div class="chips" role="group" aria-label="Practice mode"><button class="chip" aria-pressed="${S.pmode==="read"}" data-pm="read">Read</button><button class="chip" aria-pressed="${S.pmode==="blank"}" data-pm="blank">Fill in the blanks</button><button class="chip" aria-pressed="${S.pmode==="write"}" data-pm="write">Write</button></div>`;
+ if(S.pmode==="write"){renderWrite(modeChips);return}
+ if(S.pendingChoice){
+  const topic=S.lastTopic;
+  const left=remainingCount(topic,S.level);
+  $("#app").innerHTML=`<p class="mute">${S.level} · ${n} passage${n===1?"":"s"} read so far</p>${modeChips}<div class="finish"><h2 style="margin-top:0">Nice work!</h2><p>You finished a passage on <b>${esc(topic)}</b>.</p><p class="mute">Would you like to continue?</p>
+  <button class="cta" id="nextp" ${left?"":"disabled"}>${left?"Another passage on "+esc(topic):"No more passages left in "+esc(topic)}</button>
+  <button class="ghost" style="width:100%;margin-top:10px" id="chtp">Choose a different topic</button></div>`;
+  const nextp=$("#nextp");
+  nextp.onclick=()=>{const idx=pickPassageIdx(topic,S.level);if(idx==null){render();return}S.cur={topic,idx};S.pendingChoice=false;render();scrollTo(0,0)};
+  $("#chtp").onclick=()=>{S.pendingChoice=false;S.pickTopic=true;render();scrollTo(0,0)};
+  bindModeChips();
+  return;
+ }
+ if(S.pickTopic){
+  const topics=(S.topics&&S.topics.length)?S.topics:Object.keys(PASSAGES);
+  $("#app").innerHTML=`<p class="mute">${S.level} · ${n} passage${n===1?"":"s"} read so far</p>${modeChips}<h1>Choose a topic</h1>${topics.map(t=>{const left=remainingCount(t,S.level);return `<button class="chip" ${left?"":"disabled"} data-ctp="${t}" style="display:block;width:100%;text-align:left;margin:8px 0;padding:14px">${esc(t)} <span class="mute">${left?left+" left":"all done"}</span></button>`}).join("")}<button class="ghost" id="ctall" style="width:100%;margin-top:10px">Edit my topic list</button>`;
+  document.querySelectorAll("[data-ctp]").forEach(b=>b.onclick=()=>{const t=b.dataset.ctp;const idx=pickPassageIdx(t,S.level);if(idx==null)return;S.cur={topic:t,idx};S.pickTopic=false;render();scrollTo(0,0)});
+  $("#ctall").onclick=()=>{S.step="setup";S.ob=2;render();scrollTo(0,0)};
+  bindModeChips();
+  return;
+ }
+ const p=currentPassage();
+ if(!p){
+  $("#app").innerHTML=`<p class="mute">${S.level} · ${n} passage${n===1?"":"s"} read so far</p><h1>All done for now</h1>${modeChips}<div class="banner">You have finished every passage available for your chosen topics at ${S.level} level. Nice work!</div><h2>What next?</h2><p class="mute">Choose more topics, or switch level to unlock a fresh set of passages.</p><button class="ghost" id="ct">Change my topics</button><h2>Your level</h2><div class="chips" role="group" aria-label="Level">${LEVELS.map(l=>`<button class="chip" aria-pressed="${S.level===l}" data-l="${l}">${l}</button>`).join("")}</div>`;
+  $("#ct").onclick=()=>{S.step="setup";S.ob=2;render();scrollTo(0,0)};
+  document.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{S.level=b.dataset.l;S.cur=null;render()});
+  bindModeChips();
+  return;
+ }
+ $("#app").innerHTML=`<p class="mute">${S.level} · ${n} passage${n===1?"":"s"} read so far</p>
+ <h1>${esc(p.topic)}</h1>
+ ${modeChips}
+ ${S.pmode==="read"?`<p class="passage" id="ptext">${esc(p.text)}</p><p class="mute">Highlight any word to look it up on Cambridge, or save it to Notes.</p>`:
+ `<p class="fib" id="fib">${renderFib(p.text,p.key)}</p><div class="playbar"><button class="cta" id="chk" style="margin-top:0">Check answers</button></div><button class="ghost" id="rst" style="width:100%;margin-top:10px">Try again</button><p class="mute" id="fscore" role="status"></p>`}
+ <h2 class="${S.pmode==="read"?"hidden":""}" id="lh">Listen</h2>
+ <div class="${S.pmode==="read"?"hidden":""}" id="lsec"><p class="mute">Listen and fill in the missing words as you hear them, or read along and check your spelling. Playback speed matches your level (${S.level}): ${S.level==="Beginner"?"slower and clearer":S.level==="Advanced"?"closer to natural speed":"a normal pace"}.</p>
+ <div class="chips" role="group" aria-label="Voice gender">${["Woman","Man"].map(g=>`<button class="chip" aria-pressed="${S.voice.gender===g}" data-vg="${g}">${g}</button>`).join("")}</div>
+ <div class="chips" style="margin-top:8px" role="group" aria-label="Voice accent">${["British","American"].map(a=>`<button class="chip" aria-pressed="${S.voice.accent===a}" data-va="${a}">${a}</button>`).join("")}</div>
+ <p class="mute" id="vinfo"></p>
+ <div class="playbar"><button class="ghost" id="ply" aria-pressed="${S.spk==="play"}">▶ Play</button><button class="ghost" id="pau" aria-pressed="${S.spk==="pause"}">⏸ Pause</button><button class="ghost" id="stp">⏹ Stop</button></div>
+ </div>
+ <button class="read" id="rd">I've finished this passage</button>
+ <h2>Change topics</h2><p class="mute">Update your list of topics anytime.</p><button class="ghost" id="ct">Change my topics</button>
+ <h2>Your level</h2><div class="chips" role="group" aria-label="Level">${LEVELS.map(l=>`<button class="chip" aria-pressed="${S.level===l}" data-l="${l}">${l}</button>`).join("")}</div>`;
+document.querySelectorAll("[data-pm]").forEach(b=>b.onclick=()=>{stopSpeak();S.pmode=b.dataset.pm;render()});
+ if(S.pmode==="blank"){
+  $("#chk").onclick=()=>{let ok=0,tot=0;document.querySelectorAll("#fib .blank").forEach(inp=>{tot++;const v=inp.value.trim().toLowerCase();const good=v===inp.dataset.ans;inp.classList.remove("ok","bad");inp.classList.add(good?"ok":"bad");if(good)ok++;inp.readOnly=true;if(!good){const t=document.createElement("span");t.className="ans";t.textContent=" ("+inp.dataset.ans+")";inp.after(t)}});$("#fscore").textContent=ok+" of "+tot+" correct.";};
+  $("#rst").onclick=()=>{render()};
+ }
+ if(VOICES.length){const v=pickVoice(S.voice.accent,S.voice.gender);$("#vinfo").textContent=v?("Voice: "+v.name):"No matching voice found on this device, a default voice will be used.";}else{$("#vinfo").textContent="Loading available voices…"}
+ document.querySelectorAll("[data-vg]").forEach(b=>b.onclick=()=>{S.voice.gender=b.dataset.vg;stopSpeak();render()});
+ document.querySelectorAll("[data-va]").forEach(b=>b.onclick=()=>{S.voice.accent=b.dataset.va;stopSpeak();render()});
+ $("#ply").onclick=()=>{if(S.spk==="pause"){try{speechSynthesis.resume()}catch(e){}S.spk="play";render();return}speakPassage(p.text);render()};
+ $("#pau").onclick=()=>{if(S.spk==="play"){try{speechSynthesis.pause()}catch(e){}S.spk="pause";render()}};
+ $("#stp").onclick=()=>{stopSpeak();render()};
+ $("#rd").onclick=()=>{stopSpeak();markUsed(p.topic,S.level,p.idx);S.pendingChoice=true;S.lastTopic=p.topic;render();scrollTo(0,0)};
+ $("#ct").onclick=()=>{S.step="setup";S.ob=2;render();scrollTo(0,0)};
+ document.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{S.level=b.dataset.l;S.cur=null;render()});
+}
+
+async function askSample(input){
+ let sample;
+ try{sample=await claude.use("sample")}catch(e){sample=null}
+ if(!sample)return {error:"unavailable"};
+ try{return await sample.json(input)}
+ catch(e){return {error:(e&&e.code)||"error"}}
+}
+function writeSpellPrompt(topic,level,text){
+ return `You are a supportive English teacher helping a ${level} level English learner practise writing. They wrote this short paragraph on the topic "${topic}":\n"""\n${text}\n"""\nReturn ONLY valid JSON, no other text, in exactly this shape:\n{"misspelled":[{"word":"<word exactly as they wrote it>","correct":"<correct spelling>"}],"improved":"<a rewritten version of their paragraph, 3 to 5 sentences, with correct spelling and grammar, using vocabulary and sentence structure suited to a ${level} level learner, keeping their original ideas and meaning>"}\nOnly list genuine spelling mistakes in "misspelled" (not grammar issues, not names). Use an empty array if there are none.`;
+}
+function renderWrite(modeChips){
+ S.wtext=S.wtext||"";S.wres=S.wres||null;S.wsel=S.wsel||{};S.wbusy=!!S.wbusy;S.wsaved=S.wsaved||"";
+ const topic=S.wtopic||"";
+ $("#app").innerHTML=`<h1>Writing practice</h1>
+ ${modeChips}
+ <h2>Choose a topic</h2><div class="chips" role="group" aria-label="Writing topic">${TOPICS.map(t=>`<button class="chip" aria-pressed="${topic===t}" data-wt="${t}">${t}</button>`).join("")}</div>
+ ${topic?`<label for="wtxt">Write 3 to 5 sentences about ${esc(topic)}</label><textarea id="wtxt" placeholder="Write your paragraph here...">${esc(S.wtext)}</textarea>
+ <button class="cta" id="wchk" ${S.wbusy?"disabled":""}>${S.wbusy?"Checking…":"Check my writing"}</button>`:`<p class="mute">Pick a topic above to start writing.</p>`}
+ ${S.wres&&S.wres.error?`<div class="banner">${S.wres.error==="unavailable"?"This feature needs AI help that isn't available in this view right now.":"Something went wrong checking your writing. Please try again."}</div>`:""}
+ ${S.wres&&!S.wres.error?renderWriteResults():""}
+ <p class="note">Checking and rewriting use AI and may occasionally miss a mistake or phrase things differently than expected. Always use your own judgement.</p>`;
+ document.querySelectorAll("[data-wt]").forEach(b=>b.onclick=()=>{S.wtopic=b.dataset.wt;S.wtext="";S.wres=null;S.wsel={};S.wsaved="";render()});
+ const ta=$("#wtxt");if(ta)ta.oninput=e=>{S.wtext=e.target.value};
+ const wc=$("#wchk");
+ if(wc)wc.onclick=async()=>{
+  const t=(S.wtext||"").trim();
+  if(!t){ta.focus();return}
+  S.wbusy=true;S.wres=null;S.wsaved="";render();
+  const r=await askSample(writeSpellPrompt(topic,S.level,t));
+  S.wbusy=false;
+  if(r&&!r.error&&Array.isArray(r.misspelled)&&typeof r.improved==="string"){
+   S.wres=r;S.wsel={};r.misspelled.forEach((m,i)=>S.wsel[i]=true);
+  } else {
+   S.wres={error:(r&&r.error)||"error"};
+  }
+  render();
+ };
+ const sv=$("#wsave");
+ if(sv)sv.onclick=()=>{
+  S.notes=S.notes||[];let added=0;
+  (S.wres.misspelled||[]).forEach((m,i)=>{
+   const w=(m.correct||m.word||"").trim().toLowerCase();if(!w)return;
+   if(S.notes.some(n=>n.g==="Word"&&n.t.toLowerCase().startsWith(w)))return;
+   S.notes.push({id:Date.now()+i,d:today(),g:"Word",s:"Writing",t:w+` (you wrote "${m.word}")`});added++;
+  });
+  save();S.wsaved=added?("Saved "+added+" word"+(added===1?"":"s")+" to Notes."):"Already saved.";
+  render();
+ };
+ document.querySelectorAll("[data-pm]").forEach(b=>b.onclick=()=>{stopSpeak();S.pmode=b.dataset.pm;render()});
+}
+function highlightMistakes(text,ms){
+ if(!ms||!ms.length)return esc(text);
+ const words=new Set(ms.map(m=>(m.word||"").toLowerCase()));
+ return text.split(" ").map(w=>{
+  const core=w.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g,"");
+  if(core&&words.has(core.toLowerCase())){
+   const m=ms.find(x=>(x.word||"").toLowerCase()===core.toLowerCase());
+   return `<mark title="Correct: ${escA((m&&m.correct)||"")}">${esc(w)}</mark><span class="ans">(${esc((m&&m.correct)||"")})</span>`;
+  }
+  return esc(w);
+ }).join(" ");
+}
+function renderWriteResults(){
+ const ms=S.wres.misspelled||[];
+ const list=ms.length?`<h2>Your paragraph</h2><p class="mute">Misspelled words are highlighted, with the correct spelling shown right after each one.</p><p class="passage">${highlightMistakes(S.wtext,ms)}</p><button class="ghost" id="wsave">Save these words to Notes</button><p class="mute" id="wsm">${esc(S.wsaved||"")}</p>`
+ :`<div class="banner">No spelling mistakes found. Nice work!</div>`;
+ return `${list}<h2>A better version, at your level</h2><p class="rs">${esc(S.wres.improved)}</p>`;
+}
+
+const camUrl=w=>"https://dictionary.cambridge.org/search/english/direct/?q="+encodeURIComponent(w.trim());
+function addWord(w){w=(w||"").trim().toLowerCase();if(!w)return false;S.notes=S.notes||[];if(S.notes.some(n=>n.g==="Word"&&(n.t.toLowerCase()===w||n.t.toLowerCase().startsWith(w+" /"))))return "dup";S.notes.push({id:Date.now(),d:today(),g:"Word",s:"General",t:w});save();if(S.tab==="notes"&&$("#nlist"))renderList();return true}
+function wordForm(){return `<div style="padding:4px 0 14px"><p><b>Look up a word</b></p><input id="lw" placeholder="e.g. sustainable" aria-label="Word to look up"><div style="display:flex;gap:8px;margin-top:8px"><a class="ghost" id="lc" target="_blank" rel="noopener noreferrer" href="#">Cambridge</a><button class="ghost" id="lsv">Save as note</button></div><p class="mute" id="lm">Tip: highlight any word on this page to look it up or save it. Saved words go to General.</p></div>`}
+function bindWF(){const i=$("#lw"),c=$("#lc");if(!i)return;c.onclick=e=>{if(!i.value.trim()){e.preventDefault();i.focus()}};i.oninput=()=>{c.href=camUrl(i.value)};$("#lsv").onclick=()=>{const r=addWord(i.value);$("#lm").textContent=r===true?"Saved as a Word note.":r==="dup"?"Already saved.":"Type a word first.";if(r===true)i.value=""}}
+const NS=[...SK],NT=["Mistake","Tip","Question","Word"],PG=20;
+const rxe=t=>t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+const hl=(t,q)=>{if(!q)return esc(t);return t.split(new RegExp("("+rxe(q)+")","gi")).map((x,i)=>i%2?`<mark>${esc(x)}</mark>`:esc(x)).join("")};
+function renderList(){
+ const q=(S.nq||"").trim(),ql=q.toLowerCase(),act=!!(q||S.nt);
+ S.open=S.open||{};S.pg=S.pg||{};
+ const dir=S.ns==="old"?1:-1;let matches=0;
+ const html=NS.map(k=>{
+  const all=S.notes.filter(n=>(n.s||"General")===k);
+  const L=all.filter(n=>(!S.nt||n.g===S.nt)&&(!ql||n.t.toLowerCase().includes(ql))).sort((a,b)=>dir*(a.id-b.id));
+  if(act&&!L.length)return "";
+  matches+=L.length;
+  const pg=S.pg[k]||PG,open=act||!!S.open[k];
+  const items=L.slice(0,pg).map(n=>`<div class="ni"><button class="del" data-x="${n.id}" aria-label="Delete note">Delete</button><span class="tag">${n.g}</span> <span class="mute">${n.d}</span><p>${hl(n.t,q)}</p>${n.g==="Word"?`<a class="ghost" target="_blank" rel="noopener noreferrer" href="${camUrl(n.t.split(/\s+/)[0])}">Cambridge</a>`:""}</div>`).join("");
+  const more=L.length>pg?`<button class="ghost more" data-m="${k}">Show ${Math.min(PG,L.length-pg)} more (${L.length-pg} left)</button>`:"";
+  return `<details class="sec" data-s="${k}" ${open?"open":""}><summary>${k} <span class="cnt">${act?L.length+" of "+all.length:all.length}</span></summary>${L.length?items+more:`<p class="mute">No notes yet.</p>`}</details>`;
+ }).join("");
+ $("#nlist").innerHTML=html||`<p class="mute">${S.notes.length?"Nothing matches. Try a different word or filter.":"No notes yet. Add your first one above."}</p>`;
+ $("#ncount").textContent=act?matches+" result"+(matches===1?"":"s")+" out of "+S.notes.length+" notes":S.notes.length+" note"+(S.notes.length===1?"":"s")+" in total";
+ document.querySelectorAll("#nlist details").forEach(d=>d.ontoggle=()=>{if(!act){S.open[d.dataset.s]=d.open;save()}});
+ document.querySelectorAll("#nlist [data-x]").forEach(b=>b.onclick=()=>{S.notes=S.notes.filter(n=>n.id!=b.dataset.x);save();renderList()});
+ document.querySelectorAll("#nlist [data-m]").forEach(b=>b.onclick=()=>{S.pg[b.dataset.m]=(S.pg[b.dataset.m]||PG)+PG;renderList()});
+}
+function notes_(){
+ S.notes=S.notes||[];S.open=S.open||{};S.pg=S.pg||{};S.tag=S.tag||"Mistake";S.nsk=S.nsk||"General";S.ns=S.ns||"new";
+ const chips=(arr,key,cur)=>arr.map(t=>`<button class="chip" aria-pressed="${cur===t}" data-${key}="${t}">${t}</button>`).join("");
+ $("#app").innerHTML=`<h1>Notes</h1><p class="mute">Save words, mistakes, tips and questions wherever you are.</p>
+ <details class="sec" id="addn" ${!S.notes.length||S.addOpen?"open":""}><summary>Add a note</summary>
+  <label id="sl">Category</label><div class="chips" role="group" aria-labelledby="sl">${chips(NS,"k",S.nsk)}</div>
+  <label id="tl">Type</label><div class="chips" role="group" aria-labelledby="tl">${chips(NT,"g",S.tag)}</div>
+  <label for="nt">Your note</label><textarea id="nt" placeholder="e.g. I keep mixing up affect and effect">${esc(S.draft||"")}</textarea>
+  <button class="cta" style="margin:12px 0 10px" id="sn">Save to ${S.nsk}</button><p class="mute" id="sm" role="status"></p></details>
+ <details class="sec" id="lkp" ${S.lkOpen?"open":""}><summary>Look up a word</summary>${wordForm()}</details>
+ <label for="nq">Search your notes</label><input type="search" id="nq" value="${escA(S.nq||"")}" placeholder="Type a word or phrase">
+ <div class="chips" style="margin-top:10px" role="group" aria-label="Filter by type"><button class="chip" aria-pressed="${!S.nt}" data-q="">All</button>${NT.map(t=>`<button class="chip" aria-pressed="${S.nt===t}" data-q="${t}">${t}</button>`).join("")}</div>
+ <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0"><select id="nsort" aria-label="Sort" style="width:auto"><option value="new" ${S.ns==="new"?"selected":""}>Newest first</option><option value="old" ${S.ns==="old"?"selected":""}>Oldest first</option></select><button class="ghost" id="xa">Expand all</button><button class="ghost" id="ca">Collapse all</button></div>
+ <p class="mute" id="ncount"></p><div id="nlist"></div>`;
+ const ad=$("#addn"),lk=$("#lkp");ad.ontoggle=()=>{S.addOpen=ad.open;save()};lk.ontoggle=()=>{S.lkOpen=lk.open;save()};
+ document.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{S.draft=$("#nt").value;S.tag=b.dataset.g;S.addOpen=true;render()});
+ document.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{S.draft=$("#nt").value;S.nsk=b.dataset.k;S.addOpen=true;render()});
+ document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{S.nt=b.dataset.q;S.pg={};render()});
+ $("#nt").oninput=e=>{S.draft=e.target.value};
+ let tm;$("#nq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{S.nq=e.target.value;S.pg={};renderList()},150)};
+ $("#nsort").onchange=e=>{S.ns=e.target.value;renderList()};
+ $("#xa").onclick=()=>{NS.forEach(k=>S.open[k]=true);save();renderList()};
+ $("#ca").onclick=()=>{NS.forEach(k=>S.open[k]=false);save();renderList()};
+ bindWF();
+ $("#sn").onclick=()=>{const t=$("#nt").value.trim();if(!t){$("#nt").focus();return}S.notes.push({id:Date.now(),d:today(),g:S.tag,s:S.nsk,t});S.draft="";$("#nt").value="";save();$("#sm").textContent="Saved to "+S.nsk+".";renderList()};
+ renderList();
+}
+let selW="",selT;
+function hideSel(){clearTimeout(selT);$("#sel").classList.add("hidden")}
+document.addEventListener("selectionchange",()=>{
+ if(S.step!=="app"||(S.tab!=="notes"&&S.tab!=="today"))return;
+ const ae=document.activeElement;let t="";
+ if(ae&&(ae.tagName==="TEXTAREA"||ae.tagName==="INPUT")&&typeof ae.selectionStart==="number")t=ae.value.slice(ae.selectionStart,ae.selectionEnd);else t=String(getSelection());
+ t=t.trim().replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu,"");
+ clearTimeout(selT);
+ if(t&&t.length<=40&&!/\n/.test(t)){selW=t;$("#selw").textContent=t;$("#selc").href=camUrl(t);$("#sels").textContent="Save word";$("#sel").classList.remove("hidden")}
+ else selT=setTimeout(hideSel,700);
+});
+$("#sel").addEventListener("mousedown",e=>e.preventDefault());
+$("#sels").onclick=()=>{const r=addWord(selW);$("#sels").textContent=r===true?"Saved ✓":r==="dup"?"Already saved":"Save word";clearTimeout(selT);selT=setTimeout(hideSel,1500)};
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{hideSel();stopSpeak();S.tab=b.dataset.t;render();scrollTo(0,0)});
+render();
+</script></body></html>
